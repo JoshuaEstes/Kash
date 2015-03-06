@@ -1,0 +1,35 @@
+{
+    "name": "kash/kash",
+    "description": "General caching library",
+    "keywords": ["cache"],
+    "homepage": "https://github.com/JoshuaEstes/Kash",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joshua Estes",
+            "homepage": "http://joshuaestes.me"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/JoshuaEstes/Kash/issues",
+        "source": "https://github.com/JoshuaEstes/Kash"
+    },
+    "require": {
+        "php": ">=5.5",
+        "psr/log": "~1.0@stable"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "mockery/mockery": "*",
+        "fzaninotto/faker": "*"
+    },
+    "autoload": {
+        "psr-4": { "Kash\\": "src/Kash" }
+    },
+    "extra": {
+        "bin-dir": "bin",
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}

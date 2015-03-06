@@ -1,0 +1,11 @@
+<phpunit
+    bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="Kash Test Suite">
+            <directory>test/</directory>
+        </testsuite>
+    </testsuites>
+    <listeners>
+        <listener class="\Mockery\Adapter\Phpunit\TestListener"></listener>
+    </listeners>
+</phpunit>
