@@ -66,19 +66,19 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
         $pool = new CachePool($driver);
         $this->assertCount(0, $pool->getItems());
         $item = $pool->getItem('test');
-        $this->assertCount(1, $pool->getItems());
+        $this->assertCount(0, $pool->getItems());
+        $this->assertCount(1, $pool->getItems(array('insert.key')));
     }
 
     public function testClear()
     {
-        $driver = \Mockery::mock('Kash\Driver\DriverInterface', array('getItem'=>true));
+        $driver = \Mockery::mock('Kash\Driver\DriverInterface', array('getItem'=>true,'clear'=>true));
         $pool = new CachePool($driver);
         for ($i = 0; $i < 10; $i++) {
             $pool->getItem($i);
         }
-        $this->assertCount(10, $pool->getItems());
-        $this->assertTrue($pool->clear());
         $this->assertCount(0, $pool->getItems());
+        $this->assertTrue($pool->clear());
     }
 
     public function testDeleteItems()
@@ -90,9 +90,9 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < 10; $i++) {
             $pool->getItem($i);
         }
-        $this->assertCount(10, $pool->getItems());
+        $this->assertCount(0, $pool->getItems());
         $pool->deleteItems(array('1','5'));
-        $this->assertCount(8, $pool->getItems());
+        $this->assertCount(0, $pool->getItems());
     }
 
     public function testSave()
