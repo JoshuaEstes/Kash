@@ -6,10 +6,6 @@ use Kash\CacheItem;
 
 class CacheItemTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers CacheItem::__construct
-     * @covers CacheItem::getKey
-     */
     public function testConstruct()
     {
         $item = new CacheItem('test');

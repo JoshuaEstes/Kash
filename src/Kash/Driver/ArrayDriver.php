@@ -8,6 +8,7 @@
 namespace Kash\Driver;
 
 use Kash\CacheItem;
+use Kash\CacheItemInterface;
 
 /**
  * @since 0.1.0
