@@ -3,6 +3,7 @@
 namespace Kash\Test;
 
 use Kash\CachePool;
+use Kash\CacheItem;
 
 class CachePoolTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,10 +23,11 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetItem($key)
     {
-        $driver = \Mockery::mock('Kash\Driver\DriverInterface', array('getItem'=>true));
-        $pool = new CachePool($driver);
+        $mockDriver = \Mockery::mock('Kash\Driver\DriverInterface');
+        $mockDriver->shouldReceive('getItem')->andReturn(new CacheItem($key));
+        $pool = new CachePool($mockDriver);
         $item = $pool->getItem($key);
-        $this->assertInstanceOf('Kash\CacheItem', $item);
+        $this->assertInstanceOf('Kash\CacheItemInterface', $item);
         $this->assertEquals($key, $item->getKey());
     }
 
@@ -97,20 +99,25 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
 
     public function testSave()
     {
-        $driver = \Mockery::mock('Kash\Driver\DriverInterface', array('getItem'=>true));
-        $driver->shouldReceive('save')->andReturn(\Mockery::self());
-        $pool = new CachePool($driver);
+        $mockItem   = \Mockery::mock('Kash\CacheItemInterface');
+        $mockDriver = \Mockery::mock('Kash\Driver\DriverInterface');
+        $mockDriver->shouldReceive('getItem')->andReturn($mockItem);
+        $mockDriver->shouldReceive('save')->andReturn(\Mockery::self());
+        $pool = new CachePool($mockDriver);
         $item = $pool->getItem('test');
-        $this->assertInstanceOf('Kash\CachePool', $pool->save($item));
+        $this->assertInstanceOf('Kash\CacheItemInterface', $item);
+        $this->assertInstanceOf('Kash\CachePoolInterface', $pool->save($item));
     }
 
     public function testSaveDeferred()
     {
-        $driver = \Mockery::mock('Kash\Driver\DriverInterface', array('getItem'=>true));
-        $driver->shouldReceive('save')->andReturn(\Mockery::self());
-        $pool = new CachePool($driver);
+        $mockItem   = \Mockery::mock('Kash\CacheItemInterface');
+        $mockDriver = \Mockery::mock('Kash\Driver\DriverInterface');
+        $mockDriver->shouldReceive('getItem')->andReturn($mockItem);
+        $mockDriver->shouldReceive('save')->andReturn(\Mockery::self());
+        $pool = new CachePool($mockDriver);
         $item = $pool->getItem('test');
-        $this->assertInstanceOf('Kash\CachePool', $pool->saveDeferred($item));
+        $this->assertInstanceOf('Kash\CachePoolInterface', $pool->saveDeferred($item));
     }
 
     public function testCommit()

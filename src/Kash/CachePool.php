@@ -10,8 +10,9 @@ namespace Kash;
 use Kash\Driver\DriverInterface;
 
 /**
+ * @since 0.1.0
  */
-class CachePool
+class CachePool implements CachePoolInterface
 {
     /**
      * regex pattern used to determine if a key is valid.
@@ -69,10 +70,8 @@ class CachePool
             throw new \InvalidArgumentException('Invalid key');
         }
 
-        $item = new CacheItem($key);
-        $item->set($this->driver->getItem($key));
 
-        return $item;
+        return $this->driver->getItem($key);
     }
 
     /**
