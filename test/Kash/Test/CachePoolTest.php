@@ -64,8 +64,10 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
 
     public function testGetItems()
     {
-        $driver = \Mockery::mock('Kash\Driver\DriverInterface', array('getItem'=>true));
-        $pool = new CachePool($driver);
+        $mockItem   = \Mockery::mock('Kash\CacheItemInterface');
+        $mockDriver = \Mockery::mock('Kash\Driver\DriverInterface');
+        $mockDriver->shouldReceive('getItem')->andReturn($mockItem);
+        $pool = new CachePool($mockDriver);
         $this->assertCount(0, $pool->getItems());
         $item = $pool->getItem('test');
         $this->assertCount(0, $pool->getItems());
@@ -74,8 +76,11 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
 
     public function testClear()
     {
-        $driver = \Mockery::mock('Kash\Driver\DriverInterface', array('getItem'=>true,'clear'=>true));
-        $pool = new CachePool($driver);
+        $mockItem   = \Mockery::mock('Kash\CacheItemInterface');
+        $mockDriver = \Mockery::mock('Kash\Driver\DriverInterface');
+        $mockDriver->shouldReceive('getItem')->andReturn($mockItem);
+        $mockDriver->shouldReceive('clear')->andReturn(true);
+        $pool = new CachePool($mockDriver);
         for ($i = 0; $i < 10; $i++) {
             $pool->getItem($i);
         }

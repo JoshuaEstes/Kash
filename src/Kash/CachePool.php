@@ -70,8 +70,13 @@ class CachePool implements CachePoolInterface
             throw new \InvalidArgumentException('Invalid key');
         }
 
+        $item = $this->driver->getItem($key);
 
-        return $this->driver->getItem($key);
+        if (!($item instanceof \Kash\CacheItemInterface)) {
+            throw new \Exception('Driver returned invalid item');
+        }
+
+        return $item;
     }
 
     /**
