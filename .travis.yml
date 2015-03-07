@@ -16,3 +16,8 @@ install:
 # Run tests
 script:
     - phpunit
+
+# Only build master branch
+branches:
+    only:
+        - master
