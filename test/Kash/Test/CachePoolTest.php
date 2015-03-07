@@ -44,6 +44,17 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @expectedException \Exception
+     */
+    public function testGetItemWhereDriverDoesNotReturnCacheItem()
+    {
+        $driver = \Mockery::mock('Kash\Driver\DriverInterface');
+        $driver->shouldReceive('getItem')->andReturn(false);
+        $pool = new CachePool($driver);
+        $pool->getItem('blow.up');
+    }
+
+    /**
      * @expectedException \InvalidArgumentException
      * @dataProvider invalidKeyDataProvider
      */
@@ -130,5 +141,16 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
         $driver = \Mockery::mock('Kash\Driver\DriverInterface');
         $pool = new CachePool($driver);
         $this->assertTrue($pool->commit());
+    }
+
+    public function testCommitFailure()
+    {
+        $mockItem   = \Mockery::mock('Kash\CacheItemInterface');
+        $driver = \Mockery::mock('Kash\Driver\DriverInterface');
+        $driver->shouldReceive('getItem')->andReturn($mockItem);
+        $driver->shouldReceive('save')->andReturn(false);
+        $pool = new CachePool($driver);
+        $pool->saveDeferred($pool->getItem('dererred.item'));
+        $this->assertFalse($pool->commit());
     }
 }
