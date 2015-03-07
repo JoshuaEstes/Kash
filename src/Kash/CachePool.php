@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Joshua Estes
+ * @copyright 2015 Joshua Estes
+ * @license https://raw.githubusercontent.com/JoshuaEstes/Kash/master/LICENSE MIT
+ */
 
 namespace Kash;
 
@@ -12,10 +17,20 @@ class CachePool
      * regex pattern used to determine if a key is valid.
      *
      * @var string
+     * @since 0.1.0
      */
     const VALID_KEY_PATTERN = '[a-zA-Z0-9_\.]';
 
+    /**
+     * @var integer
+     * @since 0.1.0
+     */
     protected $defaultTtl = 120; // Seconds
+
+    /**
+     * @var DriverInterface
+     * @since 0.1.0
+     */
     protected $driver;
 
     /**
@@ -23,17 +38,29 @@ class CachePool
      */
     protected $itemsToSave;
 
+    /**
+     * @param DriverInterface $driver
+     * @since 0.1.0
+     */
     public function __construct(DriverInterface $driver)
     {
         $this->itemsToSave = array();
         $this->driver      = $driver;
     }
 
+    /**
+     * @since 0.1.0
+     */
     public function __destruct()
     {
         $this->commit();
     }
 
+    /**
+     * @since 0.1.0
+     * @param string $key
+     * @return CacheItemInterface
+     */
     public function getItem($key)
     {
         $isInvalid = preg_replace('/'.self::VALID_KEY_PATTERN.'/', '', $key);
@@ -48,6 +75,11 @@ class CachePool
         return $item;
     }
 
+    /**
+     * @since 0.1.0
+     * @param array $keys
+     * @return array
+     */
     public function getItems(array $keys = array())
     {
         if (0 === count($keys)) {
@@ -63,6 +95,10 @@ class CachePool
         return $itemsToReturn;
     }
 
+    /**
+     * @since 0.1.0
+     * @return boolean
+     */
     public function clear()
     {
         $this->itemsToSave = array();
@@ -70,6 +106,11 @@ class CachePool
         return $this->driver->clear();
     }
 
+    /**
+     * @since 0.1.0
+     * @param array $keys
+     * @return self
+     */
     public function deleteItems(array $keys)
     {
         foreach ($keys as $key) {
@@ -79,20 +120,34 @@ class CachePool
         return $this;
     }
 
-    public function save(CacheItem $item)
+    /**
+     * @since 0.1.0
+     * @param CacheItemInterface $item
+     * @return self
+     */
+    public function save(CacheItemInterface $item)
     {
         $this->driver->save($item);
 
         return $this;
     }
 
-    public function saveDeferred(CacheItem $item)
+    /**
+     * @since 0.1.0
+     * @param CacheItemInterface $item
+     * @return self
+     */
+    public function saveDeferred(CacheItemInterface $item)
     {
         $this->itemsToSave[] = $item;
 
         return $this;
     }
 
+    /**
+     * @since 0.1.0
+     * @return boolean
+     */
     public function commit()
     {
         $success = true;

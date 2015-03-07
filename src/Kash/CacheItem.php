@@ -2,11 +2,21 @@
 
 namespace Kash;
 
+use Kash\Driver\DriverInterface;
+use Psr\Log\LoggerInterface;
+
 /**
  */
 class CacheItem implements CacheItemInterface
 {
+    /**
+     * @var DriverInterface
+     */
     protected $driver;
+
+    /**
+     * @var
+     */
     protected $logger;
 
     /**

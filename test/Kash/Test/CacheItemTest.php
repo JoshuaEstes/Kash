@@ -16,7 +16,31 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test', $item->getKey());
     }
 
-    public function testSet()
+    public function testSetStrings()
+    {
+    }
+
+    public function testSetIntegers()
+    {
+    }
+
+    public function testSetFloats()
+    {
+    }
+
+    public function testSetBooleans()
+    {
+    }
+
+    public function testSetNulls()
+    {
+    }
+
+    public function testSetArrays()
+    {
+    }
+
+    public function testSetObjects()
     {
     }
 

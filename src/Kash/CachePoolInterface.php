@@ -2,6 +2,8 @@
 
 namespace Kash;
 
+/**
+ */
 interface CachePoolInterface
 {
     public function getItem($key);
