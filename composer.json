@@ -16,12 +16,12 @@
     },
     "require": {
         "php": ">=5.4",
-        "psr/log": "~1.0@stable"
+        "psr/log": "~1.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "mockery/mockery": "*",
-        "fzaninotto/faker": "*"
+        "phpunit/phpunit": "~4.5.0",
+        "mockery/mockery": "~0.9.0",
+        "fzaninotto/faker": "~1.4.0"
     },
     "autoload": {
         "psr-4": { "Kash\\": "src/Kash" }
