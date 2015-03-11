@@ -19,7 +19,7 @@ interface DriverInterface
      * @param string $key
      * @return boolean
      */
-    public function hasItem($key);
+    public function hasItem(CacheItemInterface $item);
 
     /**
      * @since 0.1.0

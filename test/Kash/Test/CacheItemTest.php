@@ -139,7 +139,7 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
     public function testIsHit()
     {
         $driver = \Mockery::mock('Kash\Driver\DriverInterface');
-        $driver->shouldReceive('hasKey')->andReturn(true);
+        $driver->shouldReceive('hasItem')->andReturn(true);
         $item = new CacheItem('key');
         $item->setDriver($driver);
         $item->setExpiration(300);

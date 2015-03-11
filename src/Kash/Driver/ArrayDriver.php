@@ -22,9 +22,9 @@ class ArrayDriver implements DriverInterface
         $this->items = array();
     }
 
-    public function hasItem($key)
+    public function hasItem(CacheItemInterface $item)
     {
-        return isset($this->items[$key]);
+        return isset($this->items[$item->getKey()]);
     }
 
     public function getItem($key)

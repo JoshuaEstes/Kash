@@ -109,7 +109,7 @@ class CacheItem implements CacheItemInterface
             return false;
         }
 
-        return $this->driver->hasKey($this->key);
+        return $this->driver->hasItem($this);
     }
 
     /**
