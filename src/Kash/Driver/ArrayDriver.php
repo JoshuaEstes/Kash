@@ -29,7 +29,7 @@ class ArrayDriver implements DriverInterface
 
     public function getItem($key)
     {
-        if ($this->hasItem($key)) {
+        if (isset($this->items[$key])) {
             return $this->items[$key];
         }
 
@@ -45,7 +45,7 @@ class ArrayDriver implements DriverInterface
 
     public function deleteItem($key)
     {
-        if ($this->hasItem($key)) {
+        if (isset($this->items[$key])) {
             unset($this->items[$key]);
         }
     }
