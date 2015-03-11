@@ -90,10 +90,13 @@ class CacheItem implements CacheItemInterface
      */
     public function isHit()
     {
-        /**
-         * Return true if not expired and value is valid
-         */
-        return true;
+        $now = new \DateTime();
+        $diff = $this->getExpiration()->diff($now);
+        if (1 === $diff->invert) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -112,9 +115,9 @@ class CacheItem implements CacheItemInterface
      */
     public function setExpiration($ttl = null)
     {
-        if (is_int($ttl)) {
+        if (is_numeric($ttl)) {
             $expiresAt = new \DateTime();
-            $expiresAt->add(new \DateTimeInterval('S'.$ttl));
+            $expiresAt->add(new \DateInterval('PT'.$ttl.'S'));
             $this->ttl = $expiresAt;
 
             return $this;

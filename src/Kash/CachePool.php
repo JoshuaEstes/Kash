@@ -76,6 +76,10 @@ class CachePool implements CachePoolInterface
             throw new \Exception('Driver returned invalid item');
         }
 
+        if (null === $item->getExpiration()) {
+            $item->setExpiration($this->defaultTtl);
+        }
+
         return $item;
     }
 
