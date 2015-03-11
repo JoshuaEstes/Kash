@@ -1,4 +1,4 @@
-Kash/Kash
+Kash/Kash [![Build Status](https://travis-ci.org/JoshuaEstes/Kash.svg?branch=master)](https://travis-ci.org/JoshuaEstes/Kash)
 =========
 
 Kash is a general purpose caching library that is used to cache various values
