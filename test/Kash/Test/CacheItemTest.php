@@ -136,15 +136,19 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testIsHitTrue()
+    public function testIsHit()
     {
+        $driver = \Mockery::mock('Kash\Driver\DriverInterface');
+        $driver->shouldReceive('hasKey')->andReturn(true);
         $item = new CacheItem('key');
+        $item->setDriver($driver);
         $item->setExpiration(300);
 
-        $this->assertTrue($item->isHit());
+        $this->assertTrue($item->exists(), 'Item does not exist in driver');
+        $this->assertTrue($item->isHit(), 'Item was not a hit');
     }
 
-    public function testIsHitFalse()
+    public function testIsMiss()
     {
         $item = new CacheItem('key');
         $item->setExpiration(0);

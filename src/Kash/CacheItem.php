@@ -105,6 +105,10 @@ class CacheItem implements CacheItemInterface
      */
     public function exists()
     {
+        if (null === $this->driver) {
+            return false;
+        }
+
         return $this->driver->hasKey($this->key);
     }
 
@@ -135,5 +139,12 @@ class CacheItem implements CacheItemInterface
     public function getExpiration()
     {
         return $this->ttl;
+    }
+
+    public function setDriver($driver)
+    {
+        $this->driver = $driver;
+
+        return $this;
     }
 }
