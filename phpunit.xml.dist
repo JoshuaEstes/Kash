@@ -1,4 +1,5 @@
 <phpunit
+    colors="true"
     bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="Kash Test Suite">
