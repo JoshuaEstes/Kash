@@ -80,6 +80,8 @@ class CachePool implements CachePoolInterface
             $item->setExpiration($this->defaultTtl);
         }
 
+        $item->setDriver($this->driver);
+
         return $item;
     }
 

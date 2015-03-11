@@ -92,7 +92,7 @@ class CacheItem implements CacheItemInterface
     {
         $now = new \DateTime();
         $diff = $this->getExpiration()->diff($now);
-        if (1 === $diff->invert) {
+        if (1 === $diff->invert && $this->exists()) {
             return true;
         }
 
@@ -105,7 +105,7 @@ class CacheItem implements CacheItemInterface
      */
     public function exists()
     {
-        return false;
+        return $this->driver->hasKey($this->key);
     }
 
     /**
