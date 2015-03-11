@@ -22,6 +22,8 @@ using a variety of different drivers to accomplish this.
 * Uses PSR-3 standard for logging
 * Heavily Tested, Commented, and Quality Controlled
 
+# Installation
+
 # Basic Usage
 
 ```php
