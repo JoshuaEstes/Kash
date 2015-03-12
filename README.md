@@ -1,4 +1,4 @@
-Kash/Kash [![Build Status](https://travis-ci.org/JoshuaEstes/Kash.svg?branch=master)](https://travis-ci.org/JoshuaEstes/Kash)
+Kash/Kash [![Travis](https://img.shields.io/travis/JoshuaEstes/Kash.svg)](https://travis-ci.org/JoshuaEstes/Kash) [![Packagist Pre Release](https://img.shields.io/packagist/vpre/kash/kash.svg)](https://packagist.org/packages/kash/kash) [![Packagist](https://img.shields.io/packagist/v/kash/kash.svg)](https://packagist.org/packages/kash/kash)
 =========
 
 Kash is a general purpose caching library that is used to cache various values
@@ -92,7 +92,7 @@ See [CHANGELOG.md]
 
 See [CONTRIBUTING.md]
 
-# License
+# License [![Packagist](https://img.shields.io/packagist/l/kash/kash.svg)]()
 
 Copyright (c) 2015 Joshua Estes
 
