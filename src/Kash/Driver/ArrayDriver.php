@@ -15,25 +15,34 @@ use Kash\CacheItemInterface;
  */
 class ArrayDriver implements DriverInterface
 {
+    /**
+     * @var array
+     */
     protected $items;
 
+    /**
+     */
     public function __construct()
     {
         $this->items = array();
     }
 
-    public function hasItem(CacheItemInterface $item)
+    /**
+     */
+    public function has(CacheItemInterface $item)
     {
         return isset($this->items[$item->getKey()]);
     }
 
-    public function getItem($key)
+    /**
+     */
+    public function get(CacheItemInterface $item)
     {
-        if (isset($this->items[$key])) {
-            return $this->items[$key];
+        if (isset($this->items[$item->getKey()])) {
+            return $this->items[$item->getKey()];
         }
 
-        return new CacheItem($key);
+        return $item;
     }
 
     public function clear()
@@ -43,15 +52,17 @@ class ArrayDriver implements DriverInterface
         return true;
     }
 
-    public function deleteItem($key)
+    public function delete(CacheItemInterface $item)
     {
-        if (isset($this->items[$key])) {
-            unset($this->items[$key]);
+        if (isset($this->items[$item->getKey()])) {
+            unset($this->items[$item->getKey()]);
         }
     }
 
     public function save(CacheItemInterface $item)
     {
         $this->items[$item->getKey()] = $item;
+
+        return true;
     }
 }

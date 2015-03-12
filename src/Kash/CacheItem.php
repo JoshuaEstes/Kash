@@ -90,9 +90,10 @@ class CacheItem implements CacheItemInterface
      */
     public function isHit()
     {
-        $now = new \DateTime();
-        $diff = $this->getExpiration()->diff($now);
-        if (1 === $diff->invert && $this->exists()) {
+        $now  = new \DateTime();
+        $diff = $now->diff($this->getExpiration());
+
+        if (0 === $diff->invert && $this->exists()) {
             return true;
         }
 
@@ -109,7 +110,7 @@ class CacheItem implements CacheItemInterface
             return false;
         }
 
-        return $this->driver->hasItem($this);
+        return $this->driver->has($this);
     }
 
     /**
@@ -120,17 +121,19 @@ class CacheItem implements CacheItemInterface
     public function setExpiration($ttl = null)
     {
         if (is_numeric($ttl)) {
-            $expiresAt = new \DateTime();
-            $expiresAt->add(new \DateInterval('PT'.$ttl.'S'));
+            $expiresAt = $this->getExpiration();
+            while ($ttl > 60) {
+                $expiresAt->add(new \DateInterval('PT60S'));
+                $ttl -= 60;
+            }
+
+            if ($ttl < 60) {
+                $expiresAt->add(new \DateInterval('PT'.$ttl.'S'));
+            }
+
             $this->ttl = $expiresAt;
-
-            return $this;
-        }
-
-        if ($ttl instanceof \DateTime || null === $ttl) {
+        } elseif ($ttl instanceof \DateTime || null === $ttl) {
             $this->ttl = $ttl;
-
-            return $this;
         }
 
         return $this;
@@ -138,6 +141,10 @@ class CacheItem implements CacheItemInterface
 
     public function getExpiration()
     {
+        if (null === $this->ttl) {
+            return new \DateTime();
+        }
+
         return $this->ttl;
     }
 

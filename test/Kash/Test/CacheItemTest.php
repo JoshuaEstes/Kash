@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Joshua Estes
+ * @copyright 2015 Joshua Estes
+ * @license https://raw.githubusercontent.com/JoshuaEstes/Kash/master/LICENSE MIT
+ */
 
 namespace Kash\Test;
 
@@ -139,10 +144,10 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
     public function testIsHit()
     {
         $driver = \Mockery::mock('Kash\Driver\DriverInterface');
-        $driver->shouldReceive('hasItem')->andReturn(true);
+        $driver->shouldReceive('has')->andReturn(true);
         $item = new CacheItem('key');
         $item->setDriver($driver);
-        $item->setExpiration(300);
+        $item->setExpiration(300); // expire in 300 seconds
 
         $this->assertTrue($item->exists(), 'Item does not exist in driver');
         $this->assertTrue($item->isHit(), 'Item was not a hit');
@@ -172,6 +177,6 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
     public function testGetExpiration()
     {
         $item = new CacheItem('key');
-        $this->assertNull($item->getExpiration());
+        $this->assertInstanceOf('DateTime', $item->getExpiration());
     }
 }

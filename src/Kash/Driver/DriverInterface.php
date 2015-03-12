@@ -15,18 +15,20 @@ use Kash\CacheItemInterface;
 interface DriverInterface
 {
     /**
+     * Returns true if the item exists in it's cache
+     *
      * @since 0.1.0
-     * @param string $key
+     * @param CacheItemInterface $item
      * @return boolean
      */
-    public function hasItem(CacheItemInterface $item);
+    public function has(CacheItemInterface $item);
 
     /**
      * @since 0.1.0
-     * @param string $key
+     * @param CacheItemInterface $item
      * @return CacheItemInterface
      */
-    public function getItem($key);
+    public function get(CacheItemInterface $item);
 
     /**
      * @since 0.1.0
@@ -37,7 +39,7 @@ interface DriverInterface
     /**
      * @since 0.1.0
      */
-    public function deleteItem($key);
+    public function delete(CacheItemInterface $item);
 
     /**
      * @since 0.1.0

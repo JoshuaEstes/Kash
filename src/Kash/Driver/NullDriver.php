@@ -14,14 +14,14 @@ use Kash\CacheItemInterface;
  */
 class NullDriver implements DriverInterface
 {
-    public function hasItem($key)
+    public function has(CacheItemInterface $item)
     {
         return false;
     }
 
-    public function getItem($key)
+    public function get(CacheItemInterface $item)
     {
-        return new CacheItem($key);
+        return $item;
     }
 
     public function clear()
@@ -29,7 +29,7 @@ class NullDriver implements DriverInterface
         return true;
     }
 
-    public function deleteItem($key)
+    public function delete(CacheItemInterface $item)
     {
     }
 
