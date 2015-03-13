@@ -8,7 +8,7 @@ This project uses [Semantic Versioning](http://semver.org/) and it is advised
 that you look this over.
 
 Please see [http://keepachangelog.com](http://keepachangelog.com/) for
-documentation on keeping the CHANGELOG.md file up to date.
+documentation on keeping the [CHANGELOG.md] file up to date.
 
 # Coding Standards and Styles
 
@@ -25,3 +25,4 @@ documented.
 [PSR-2]: http://www.php-fig.org/psr/psr-2/
 [PSR-3]: http://www.php-fig.org/psr/psr-3/
 [PSR-4]: http://www.php-fig.org/psr/psr-4/
+[CHANGELOG.md]: https://github.com/JoshuaEstes/Kash/blob/master/CHANGELOG.md

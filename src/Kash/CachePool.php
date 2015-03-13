@@ -8,6 +8,7 @@
 namespace Kash;
 
 use Kash\Driver\DriverInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * @since 0.1.0
@@ -32,6 +33,11 @@ class CachePool implements CachePoolInterface
     protected $driver;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @var array
      */
     protected $itemsToSave;
@@ -40,10 +46,11 @@ class CachePool implements CachePoolInterface
      * @param DriverInterface $driver
      * @since 0.1.0
      */
-    public function __construct(DriverInterface $driver)
+    public function __construct(DriverInterface $driver, LoggerInterface $logger = null)
     {
         $this->itemsToSave = array();
         $this->driver      = $driver;
+        $this->logger      = $logger;
     }
 
     /**

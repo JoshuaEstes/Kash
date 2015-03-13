@@ -17,31 +17,26 @@ class CacheItem implements CacheItemInterface
 {
     /**
      * @var DriverInterface
-     * @since 0.1.0
      */
     protected $driver;
 
     /**
      * @var LoggerInterface
-     * @since 0.1.0
      */
     protected $logger;
 
     /**
      * @var string
-     * @since 0.1.0
      */
     protected $key;
 
     /**
      * @var mixed
-     * @since 0.1.0
      */
     protected $value;
 
     /**
      * @var \DateTimeInterface
-     * @since 0.1.0
      */
     protected $ttl;
 
@@ -148,10 +143,15 @@ class CacheItem implements CacheItemInterface
         return $this->ttl;
     }
 
-    public function setDriver($driver)
+    public function setDriver(DriverInterface $driver)
     {
         $this->driver = $driver;
 
         return $this;
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 }
