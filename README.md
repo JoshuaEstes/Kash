@@ -148,7 +148,7 @@ See [CHANGELOG.md]
 
 See [CONTRIBUTING.md]
 
-# License [![Packagist](https://img.shields.io/packagist/l/kash/kash.svg)]()
+# License [![Packagist](https://img.shields.io/packagist/l/kash/kash.svg)](https://raw.githubusercontent.com/JoshuaEstes/Kash/master/LICENSE)
 
 Copyright (c) 2015 Joshua Estes
 
