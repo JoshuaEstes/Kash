@@ -15,6 +15,7 @@ interface CacheItemInterface
     /**
      * Every CacheItem has a key which is a unique identifier
      *
+     * @since 0.1.0
      * @return string
      */
     public function getKey();
@@ -22,6 +23,7 @@ interface CacheItemInterface
     /**
      * Returns the stored cached value
      *
+     * @since 0.1.0
      * @return mixed
      */
     public function get();
@@ -29,6 +31,7 @@ interface CacheItemInterface
     /**
      * Sets the value of what is to be stored in the cache
      *
+     * @since 0.1.0
      * @param mixed $value
      * @return self
      */
@@ -37,6 +40,7 @@ interface CacheItemInterface
     /**
      * If the item has been found and is not expired, it will return true
      *
+     * @since 0.1.0
      * @return boolean
      */
     public function isHit();
@@ -44,6 +48,7 @@ interface CacheItemInterface
     /**
      * If the items exists in the cache
      *
+     * @since 0.1.0
      * @return boolean
      */
     public function exists();
@@ -53,6 +58,7 @@ interface CacheItemInterface
      * Pass in a \DateTime object with the time it should expire
      * null will reset the expiration time
      *
+     * @since 0.1.0
      * @param int|\DateTime|null $ttl
      * @return self
      */
@@ -62,6 +68,7 @@ interface CacheItemInterface
      * Returns the \DateTime object for when the item expires, if there has not
      * been an expiration time set, it will return the current \DateTime
      *
+     * @since 0.1.0
      * @return \DateTime
      */
     public function getExpiration();

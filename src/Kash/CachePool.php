@@ -18,19 +18,16 @@ class CachePool implements CachePoolInterface
      * regex pattern used to determine if a key is valid.
      *
      * @var string
-     * @since 0.1.0
      */
     const VALID_KEY_PATTERN = '[a-zA-Z0-9_\.]';
 
     /**
      * @var integer
-     * @since 0.1.0
      */
     protected $defaultTtl = 120; // Seconds
 
     /**
      * @var DriverInterface
-     * @since 0.1.0
      */
     protected $driver;
 

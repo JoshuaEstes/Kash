@@ -24,25 +24,44 @@ using a variety of different drivers to accomplish this.
 
 # Installation
 
+## Composer (Preferred)
+
+This assumes you have [composer] installed. Once you do that please run
+
+```bash
+composer.phar require "kash/kash:*"
+```
+
 # Basic Usage
 
 ```php
 <?php
 
-use Kash\Driver\ArrayDriver;
-use Kash\CachePool;
+// Configure the pool with a driver
+$driver = new \Kash\Driver\ArrayDriver();
+$pool   = new \Kash\CachePool($driver);
 
-$driver = new ArrayDriver();
-$pool   = new CachePool($driver);
-
+// Get an item base on a unique key. If the item does
+// not exist, it creates one for you
+/** @var \Kash\CacheItemInterface */
 $item = $pool->getItem('example_key');
 
 if (!$item->isHit()) {
-    // ... do stuff, put result into $value
-    $pool->save($item->set($value));
+    // ... do stuff, put results into $value
+    $item->set($value);
+
+    // Save the item to your cache
+    $pool->save($item);
 }
 
+// $result is whatever you had it set to
 $result = $item->get();
+
+// Delete the item from the cache
+$pool->deleteItems(array($item));
+
+// Clear the backend cache of all items
+$pool->clear();
 ```
 
 # Core Concepts
@@ -50,17 +69,24 @@ $result = $item->get();
 ## Items
 
 Items are the smallest unit that can be cached. This would include the results
-from an API call or possible just a simple value.
+from an API call or possible just a simple value. Items are what you will use to
+cache data and check expiration times.
 
 ## Pools
 
-Items go into and come out of a pool.
+Items go into and come out of a pool. The pool uses Drivers to talk with various
+Backends.
 
 ## Drivers
 
-Drivers are the classes that will persist an Item to some type of storage. For
-example the FilesystemDriver will save an Item to the filesystem once
-configured.
+Drivers are used to communicate with cache Backends such as a filesytem,
+database, etc. The only know of the Backend they need to communicate with and
+that they are given CacheItem's to find and persist.
+
+## Backends
+
+Backends are anything that is used to store cached items. These include things
+such as a filesystem up to Redis and everything in between.
 
 # Usage
 
@@ -80,9 +106,36 @@ The `NullDriver` does not cache any data.
 This driver caches data in an `array`. It does not persist data, but you are
 able to set values and expire items.
 
+### Usage
+
+```php
+<?php
+
+$driver = new \Kash\Driver\ArrayDriver();
+$pool   = new \Kash\CachePool($driver);
+```
+
 ## FilesystemDriver
 
 Caches data to a filesystem.
+
+# API Documentation
+
+API docs are generated using [phpDocumentor]. To generate documentation for
+this project, please run:
+
+```bash
+phpdoc -d src -t build/api-docs
+```
+
+# Testing
+
+[PHPUnit] is used as the testing framework. If you want to run tests, just run
+`phpunit`.
+
+```bash
+phpunit
+```
 
 # Change Log
 
@@ -114,5 +167,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
+[composer]: https://getcomposer.org/
+[phpDocumentor]: http://www.phpdoc.org/
 [CHANGELOG.md]: https://github.com/JoshuaEstes/Kash/blob/master/CHANGELOG.md
 [CONTRIBUTING.md]: https://github.com/JoshuaEstes/Kash/blob/master/CONTRIBUTING.md

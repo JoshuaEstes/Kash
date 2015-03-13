@@ -16,11 +16,14 @@ use Kash\CacheItemInterface;
 class ArrayDriver implements DriverInterface
 {
     /**
+     * Holds all the items
+     *
      * @var array
      */
     protected $items;
 
     /**
+     * @since 0.1.0
      */
     public function __construct()
     {
@@ -28,6 +31,7 @@ class ArrayDriver implements DriverInterface
     }
 
     /**
+     * {@inheritDoc}
      */
     public function has(CacheItemInterface $item)
     {
@@ -35,6 +39,9 @@ class ArrayDriver implements DriverInterface
     }
 
     /**
+     * @since 0.1.0
+     * @param CacheItemInterface $item
+     * @return CacheItemInterface
      */
     public function get(CacheItemInterface $item)
     {
@@ -45,6 +52,10 @@ class ArrayDriver implements DriverInterface
         return $item;
     }
 
+    /**
+     * @since 0.1.0
+     * @return boolean
+     */
     public function clear()
     {
         $this->items = array();
@@ -52,6 +63,10 @@ class ArrayDriver implements DriverInterface
         return true;
     }
 
+    /**
+     * @since 0.1.0
+     * @param CacheItemInterface $item
+     */
     public function delete(CacheItemInterface $item)
     {
         if (isset($this->items[$item->getKey()])) {
@@ -59,6 +74,11 @@ class ArrayDriver implements DriverInterface
         }
     }
 
+    /**
+     * @since 0.1.0
+     * @param CacheItemInterface $item
+     * @return boolean
+     */
     public function save(CacheItemInterface $item)
     {
         $this->items[$item->getKey()] = $item;

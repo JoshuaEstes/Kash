@@ -19,6 +19,7 @@
         "psr/log": "~1.0.0"
     },
     "require-dev": {
+        "phpdocumentor/phpdocumentor": "~2.8.0",
         "phpunit/phpunit": "~4.5.0",
         "mockery/mockery": "~0.9.0",
         "fzaninotto/faker": "~1.4.0"
@@ -26,8 +27,10 @@
     "autoload": {
         "psr-4": { "Kash\\": "src/Kash" }
     },
+    "config": {
+        "bin-dir": "bin"
+    },
     "extra": {
-        "bin-dir": "bin",
         "branch-alias": {
             "dev-master": "0.1.x-dev"
         }
