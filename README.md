@@ -50,6 +50,9 @@ if (!$item->isHit()) {
     // ... do stuff, put results into $value
     $item->set($value);
 
+    // Expires in 300 seconds from now
+    $item->setExpiration(300);
+
     // Save the item to your cache
     $pool->save($item);
 }
@@ -88,13 +91,6 @@ that they are given CacheItem's to find and persist.
 Backends are anything that is used to store cached items. These include things
 such as a filesystem up to Redis and everything in between.
 
-# Usage
-
-This section will give more detailed examples of using the library.
-
-```php
-```
-
 # Drivers
 
 ## NullDriver
@@ -118,6 +114,13 @@ $pool   = new \Kash\CachePool($driver);
 ## FilesystemDriver
 
 Caches data to a filesystem.
+
+## Creating Your Own Driver
+
+All drivers MUST implement the [DriverInterface]. The documentation for what is
+expected is documented in this file. Once you have your driver class created you
+will just inject it into the CachePool when you create it. Easy! For some
+examples please look at some of the included drivers code.
 
 # API Documentation
 
@@ -168,6 +171,8 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
 [composer]: https://getcomposer.org/
+[DriverInterface]: https://github.com/JoshuaEstes/Kash/blob/master/src/Kash/Driver/DriverInterface.php
 [phpDocumentor]: http://www.phpdoc.org/
+[PHPUnit]: https://phpunit.de/
 [CHANGELOG.md]: https://github.com/JoshuaEstes/Kash/blob/master/CHANGELOG.md
 [CONTRIBUTING.md]: https://github.com/JoshuaEstes/Kash/blob/master/CONTRIBUTING.md
