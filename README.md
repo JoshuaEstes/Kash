@@ -32,7 +32,7 @@ This assumes you have [composer] installed. Once you do that please run
 composer.phar require "kash/kash:*"
 ```
 
-# Basic Usage
+# Usage
 
 ```php
 <?php
@@ -40,6 +40,11 @@ composer.phar require "kash/kash:*"
 // Configure the pool with a driver
 $driver = new \Kash\Driver\ArrayDriver();
 $pool   = new \Kash\CachePool($driver);
+
+/**
+ * Use to enable logging, $logger is a PSR-3 compatible logger
+ */
+//$pool->setLogger($logger);
 
 // Get an item base on a unique key. If the item does
 // not exist, it creates one for you
@@ -66,6 +71,22 @@ $pool->deleteItems(array($item));
 // Clear the backend cache of all items
 $pool->clear();
 ```
+
+# Configure Kash as a Service with Symfony2
+
+Edit your `services.xml` file.
+
+```xml
+<service id="cache_driver" class="Kash\Driver\ArrayDriver" />
+<service id="cache_pool" class="Kash\CachePool">
+    <argument type="service" id="cache_driver" />
+    <call method="setLogger">
+        <argument type="service" id="logger" />
+    </call>
+</service>
+```
+
+This will set up Kash and use [Monolog] as the logger.
 
 # Core Concepts
 
@@ -176,3 +197,4 @@ DEALINGS IN THE SOFTWARE.
 [PHPUnit]: https://phpunit.de/
 [CHANGELOG.md]: https://github.com/JoshuaEstes/Kash/blob/master/CHANGELOG.md
 [CONTRIBUTING.md]: https://github.com/JoshuaEstes/Kash/blob/master/CONTRIBUTING.md
+[Monolog]: https://github.com/Seldaek/monolog
