@@ -84,7 +84,16 @@ Edit your `services.xml` file.
 </service>
 ```
 
-This will set up Kash and use [Monolog] as the logger.
+This will set up Kash and use [Monolog] as the logger or whatever you have setup
+as the logging service. You can change the driver class to whatever driver you
+want.
+
+When you need to use the caching service, simple grab it out of the container.
+
+```php
+// Inside your controller, inside an action
+$pool = $this->get('cache_pool');
+```
 
 # Core Concepts
 
