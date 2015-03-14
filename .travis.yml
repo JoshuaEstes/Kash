@@ -5,18 +5,6 @@ php:
     - 5.5
     - 5.4
 
-# Enable services to test different drivers
-services:
-    - redis
-
-# Install dependencies
-install:
-    - composer install
-
-# Run tests
-script:
-    - phpunit
-
 # Only build master branch
 branches:
     only:
@@ -25,3 +13,20 @@ branches:
 # Disable notifications
 notifications:
       email: false
+
+# Enable services to test different drivers
+services:
+    - redis
+
+# Install dependencies
+before_install:
+    - composer install
+
+# Run tests
+script:
+    - phpunit
+
+# Scripts to run after tests
+after_script:
+    - bin/test-reporter --stdout > codeclimate.json
+    - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"
