@@ -40,7 +40,7 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException \Kash\CacheException
      */
     public function testGetItemWhereDriverDoesNotReturnCacheItem()
     {
@@ -51,7 +51,7 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Kash\InvalidArgumentException
      * @dataProvider invalidKeyDataProvider
      */
     public function testGetItemUsingInvalidKey($key)

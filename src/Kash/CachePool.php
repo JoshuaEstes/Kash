@@ -80,7 +80,7 @@ class CachePool implements CachePoolInterface, LoggerAwareInterface
 
         if (!($item instanceof \Kash\CacheItemInterface)) {
             $this->log(LogLevel::ALERT, 'The driver did not return a valid "\Kash\CacheItem". It must implement "\Kash\CacheItemInterface"');
-            throw new Exception('Driver returned invalid item');
+            throw new CacheException('Driver returned invalid item');
         }
 
         if (null === $item->getExpiration()) {
