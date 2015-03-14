@@ -9,11 +9,13 @@ namespace Kash;
 
 use Kash\Driver\DriverInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
+use Psr\Log\LoggerAwareInterface;
 
 /**
  * @since 0.1.0
  */
-class CacheItem implements CacheItemInterface
+class CacheItem implements CacheItemInterface, LoggerAwareInterface
 {
     /**
      * @var DriverInterface
@@ -153,5 +155,21 @@ class CacheItem implements CacheItemInterface
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
+    }
+
+    /**
+     * @since 0.1.0
+     * @param mixed $level
+     * @param string $message
+     * @param array $context
+     * @return null
+     */
+    protected function log($level, $message, array $context = array())
+    {
+        if (null === $this->logger) {
+            return;
+        }
+
+        $this->logger->log($level, $message, $context);
     }
 }

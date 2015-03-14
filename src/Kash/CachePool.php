@@ -8,12 +8,14 @@
 namespace Kash;
 
 use Kash\Driver\DriverInterface;
+use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 /**
  * @since 0.1.0
  */
-class CachePool implements CachePoolInterface
+class CachePool implements CachePoolInterface, LoggerAwareInterface
 {
     /**
      * regex pattern used to determine if a key is valid.
@@ -43,14 +45,13 @@ class CachePool implements CachePoolInterface
     protected $itemsToSave;
 
     /**
-     * @param DriverInterface $driver
      * @since 0.1.0
+     * @param DriverInterface $driver
      */
-    public function __construct(DriverInterface $driver, LoggerInterface $logger = null)
+    public function __construct(DriverInterface $driver)
     {
         $this->itemsToSave = array();
         $this->driver      = $driver;
-        $this->logger      = $logger;
     }
 
     /**
@@ -71,16 +72,19 @@ class CachePool implements CachePoolInterface
         $isInvalid = preg_replace('/'.self::VALID_KEY_PATTERN.'/', '', $key);
 
         if ('' !== $isInvalid) {
-            throw new \InvalidArgumentException('Invalid key');
+            $this->log(LogLevel::ALERT, '"{key}" is invalid', array('key' => $key));
+            throw new InvalidArgumentException('Invalid key');
         }
 
         $item = $this->driver->get(new CacheItem($key));
 
         if (!($item instanceof \Kash\CacheItemInterface)) {
-            throw new \Exception('Driver returned invalid item');
+            $this->log(LogLevel::ALERT, 'The driver did not return a valid "\Kash\CacheItem". It must implement "\Kash\CacheItemInterface"');
+            throw new Exception('Driver returned invalid item');
         }
 
         if (null === $item->getExpiration()) {
+            $this->log(LogLevel::DEBUG, 'Setting default ttl of "{ttl}" seconds', array('ttl' => $this->defaultTtl));
             $item->setExpiration($this->defaultTtl);
         }
 
@@ -91,8 +95,8 @@ class CachePool implements CachePoolInterface
 
     /**
      * @since 0.1.0
-     * @param array $keys
-     * @return array
+     * @param array[string] $keys
+     * @return array[CacheItemInterface]
      */
     public function getItems(array $keys = array())
     {
@@ -173,5 +177,31 @@ class CachePool implements CachePoolInterface
         }
 
         return $success;
+    }
+
+    /**
+     * @since 0.1.0
+     * {@inheritDoc}
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * @since 0.1.0
+     * @see \Psr\Log\LoggerInterface::log
+     * @param mixed $level
+     * @param string $message
+     * @param array $context
+     * @return null
+     */
+    protected function log($level, $message, array $context = array())
+    {
+        if (null === $this->logger) {
+            return;
+        }
+
+        $this->logger->log($level, $message, $context);
     }
 }

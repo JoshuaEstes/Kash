@@ -4,6 +4,7 @@ namespace Kash\Test;
 
 use Kash\CachePool;
 use Kash\CacheItem;
+use Psr\Log\LoggerInterface;
 
 class CachePoolTest extends \PHPUnit_Framework_TestCase
 {
