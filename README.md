@@ -41,9 +41,7 @@ composer.phar require "kash/kash:*"
 $driver = new \Kash\Driver\ArrayDriver();
 $pool   = new \Kash\CachePool($driver);
 
-/**
- * Use to enable logging, $logger is a PSR-3 compatible logger
- */
+// Use to enable logging, $logger is a PSR-3 compatible logger
 //$pool->setLogger($logger);
 
 // Get an item base on a unique key. If the item does
