@@ -1,6 +1,8 @@
 Kash/Kash [![Travis](https://img.shields.io/travis/JoshuaEstes/Kash.svg)](https://travis-ci.org/JoshuaEstes/Kash) [![Packagist Pre Release](https://img.shields.io/packagist/vpre/kash/kash.svg)](https://packagist.org/packages/kash/kash) [![Packagist](https://img.shields.io/packagist/v/kash/kash.svg)](https://packagist.org/packages/kash/kash)
 =========
 
+[![Code Climate](https://img.shields.io/codeclimate/github/JoshuaEstes/Kash.svg)](https://codeclimate.com/github/JoshuaEstes/Kash) [![Code Climate](https://img.shields.io/codeclimate/coverage/github/JoshuaEstes/Kash.svg)](https://codeclimate.com/github/JoshuaEstes/Kash)
+
 Kash is a general purpose caching library that is used to cache various values
 using a variety of different drivers to accomplish this.
 
