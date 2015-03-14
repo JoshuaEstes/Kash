@@ -18,7 +18,7 @@
     </filter>
 
     <logging>
-        <log type="coverage-clover" target="build/logs/clover.log"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
         <log type="coverage-html" target="build/code-coverage"/>
     </logging>
 </phpunit>
