@@ -36,10 +36,10 @@ You can browse a list of all current [releases].
 
 ## Minor Release Checklist
 
-[] update [CHANGELOG.md] with version that will be tagged, push
-[] tag current release, push tag
-[] update composer.json with incremented minor, push
-[] update [CHANGELOG.md] with unreleased section, push
+- [ ] update [CHANGELOG.md] with version that will be tagged, push
+- [ ] tag current release, push tag
+- [ ] update composer.json with incremented minor, push
+- [ ] update [CHANGELOG.md] with unreleased section, push
 
 [PSR-1]: http://www.php-fig.org/psr/psr-1/
 [PSR-2]: http://www.php-fig.org/psr/psr-2/
