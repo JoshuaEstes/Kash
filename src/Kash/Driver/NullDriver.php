@@ -7,33 +7,50 @@
 
 namespace Kash\Driver;
 
-use Kash\CacheItem;
 use Kash\CacheItemInterface;
 
 /**
+ * @since 0.1.0
  */
 class NullDriver implements DriverInterface
 {
+    /**
+     * {@inheritDoc}
+     */
     public function has(CacheItemInterface $item)
     {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function get(CacheItemInterface $item)
     {
         return $item;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function clear()
     {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function delete(CacheItemInterface $item)
     {
+        return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function save(CacheItemInterface $item)
     {
+        return true;
     }
 }

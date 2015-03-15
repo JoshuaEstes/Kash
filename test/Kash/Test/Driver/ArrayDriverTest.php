@@ -13,7 +13,6 @@ class ArrayDriverTest extends \PHPUnit_Framework_TestCase
 {
     public function testHasTrue()
     {
-        $driver = new ArrayDriver();
         $item = \Mockery::mock('Kash\CacheItemInterface');
         $item->shouldReceive('getKey')->andReturn('test.key');
         $driver = new ArrayDriver();
