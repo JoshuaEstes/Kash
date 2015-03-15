@@ -5,6 +5,7 @@ namespace Kash\Test;
 use Kash\CachePool;
 use Kash\CacheItem;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 class CachePoolTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,9 +20,12 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetItem($key)
     {
+        $logger = \Mockery::mock('Psr\Log\LoggerInterface');
+        $logger->shouldReceive('log');
         $mockDriver = \Mockery::mock('Kash\Driver\DriverInterface');
         $mockDriver->shouldReceive('get')->andReturn(new CacheItem($key));
         $pool = new CachePool($mockDriver);
+        $pool->setLogger($logger);
         $item = $pool->getItem($key);
         $this->assertInstanceOf('Kash\CacheItemInterface', $item);
         $this->assertEquals($key, $item->getKey());
@@ -57,7 +61,10 @@ class CachePoolTest extends \PHPUnit_Framework_TestCase
     public function testGetItemUsingInvalidKey($key)
     {
         $driver = \Mockery::mock('Kash\Driver\DriverInterface', array('get'=>true));
+        $logger = \Mockery::mock('Psr\Log\LoggerInterface');
+        $logger->shouldReceive('log');
         $pool = new CachePool($driver);
+        $pool->setLogger($logger);
         $pool->getItem($key);
     }
 

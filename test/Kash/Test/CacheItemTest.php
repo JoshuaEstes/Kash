@@ -13,7 +13,10 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {
+        $logger = \Mockery::mock('Psr\Log\LoggerInterface');
+        $logger->shouldReceive('log');
         $item = new CacheItem('test');
+        $item->setLogger($logger);
         $this->assertEquals('test', $item->getKey());
     }
 

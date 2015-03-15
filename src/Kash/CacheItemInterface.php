@@ -7,10 +7,12 @@
 
 namespace Kash;
 
+use Psr\Log\LoggerAwareInterface;
+
 /**
  * @since 0.1.0
  */
-interface CacheItemInterface
+interface CacheItemInterface extends LoggerAwareInterface
 {
     /**
      * Every CacheItem has a key which is a unique identifier

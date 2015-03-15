@@ -7,10 +7,12 @@
 
 namespace Kash;
 
+use Psr\Log\LoggerAwareInterface;
+
 /**
  * @since 0.1.0
  */
-interface CachePoolInterface
+interface CachePoolInterface extends LoggerAwareInterface
 {
     /**
      * @since 0.1.0

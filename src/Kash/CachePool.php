@@ -8,14 +8,13 @@
 namespace Kash;
 
 use Kash\Driver\DriverInterface;
-use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
 /**
  * @since 0.1.0
  */
-class CachePool implements CachePoolInterface, LoggerAwareInterface
+class CachePool implements CachePoolInterface
 {
     /**
      * regex pattern used to determine if a key is valid.
@@ -89,6 +88,10 @@ class CachePool implements CachePoolInterface, LoggerAwareInterface
         }
 
         $item->setDriver($this->driver);
+
+        if ($this->logger) {
+            $item->setLogger($this->logger);
+        }
 
         return $item;
     }
