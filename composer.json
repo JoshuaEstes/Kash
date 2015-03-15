@@ -19,6 +19,7 @@
         "psr/log": "~1.0.0"
     },
     "require-dev": {
+        "mikey179/vfsStream": "~1.4.0",
         "codeclimate/php-test-reporter": "dev-master",
         "phpdocumentor/phpdocumentor": "~2.8.0",
         "phpunit/phpunit": "~4.5.0",
